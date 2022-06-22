@@ -29,4 +29,11 @@ export default {
       title: "Cover Art",
     },
   ],
+  preview: {
+    select: {
+      title: "artist",
+      subtitle: "albumTitle",
+      media: "coverArt"
+    }
+  }
 };
