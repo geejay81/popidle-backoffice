@@ -19,6 +19,11 @@ export default {
       title: "Album Title",
     },
     {
+      name: "year",
+      type: "number",
+      title: "Year Released",
+    },
+    {
       name: "embedKey",
       type: "string",
       title: "Embed Key",
