@@ -40,5 +40,24 @@ export default {
       subtitle: "albumTitle",
       media: "coverArt"
     }
-  }
+  },
+  orderings: [
+    {
+      title: 'Game ID, Latest',
+      name: 'gameIdLatest',
+      by: [
+        {
+          field: 'gameId', 
+          direction: 'desc'
+        }
+      ]
+    },
+    {
+      title: 'Game ID, Oldest',
+      name: 'gameIdOldest',
+      by: [
+        {field: 'gameId', direction: 'asc'}
+      ]
+    }
+  ]
 };
