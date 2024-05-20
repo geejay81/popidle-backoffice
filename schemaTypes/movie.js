@@ -28,6 +28,11 @@ export default {
         type: "image",
         title: "Poster",
       },
+      {
+        name: "decadeGameId",
+        type: "number",
+        title: "Decade Game ID",
+      },
     ],
     preview: {
       select: {

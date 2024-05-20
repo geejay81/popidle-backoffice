@@ -33,6 +33,11 @@ export default {
       type: "image",
       title: "Cover Art",
     },
+    {
+      name: "decadeGameId",
+      type: "number",
+      title: "Decade Game ID",
+    },
   ],
   preview: {
     select: {
