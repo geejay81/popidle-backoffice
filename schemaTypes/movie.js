@@ -1,3 +1,17 @@
+import { gameAppearances } from "../subSchemas/game-appearances";
+
+const gameTypes = [
+  { title: "Posters", value: "posters" },
+  { title: "Taglines", value: "taglines" },
+  { title: "Blank Buster", value: "blankbuster" },
+];
+
+const typeLabels = {
+  "posters": "Posters",
+  "taglines": "Taglines",
+  "blankbuster": "Blank Buster"
+}
+
 export default {
     name: "movie",
     type: "document",
@@ -84,6 +98,7 @@ export default {
         title: 'Rating',
         description: 'Average rating out of 10'
       },
+      gameAppearances(gameTypes, typeLabels),
     ],
     preview: {
       select: {
