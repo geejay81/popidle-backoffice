@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import groq from 'groq';
 import { client } from '../sanity/client' // adjust path as needed
+import { Card, Box, Text, Flex } from '@sanity/ui'
 
 const query = groq`
 {
@@ -25,16 +26,67 @@ export default function GameStatsWidget() {
 
   if (!data) return <div>Loading game stats...</div>
 
+  const getFinalDate = (originalDate, days) => {
+    const date = new Date(originalDate);
+    return date.setDate(date.getDate() + days - 1)
+  }
+
+  const latestSetGames = [
+    {
+      "GameType": "Original Popidle",
+      "LatestGame": getFinalDate('2022-05-22', Number(data["LatestPopIdleGame"]))
+    },
+    {
+      "GameType": "80s Popidle",
+      "LatestGame": getFinalDate('2024-05-28', Number(data["Latest80sPopIdleGame"]))
+    },
+    {
+      "GameType": "90s Popidle",
+      "LatestGame": getFinalDate('2024-05-28', Number(data["Latest90sPopIdleGame"]))
+    },
+    {
+      "GameType": "00s Popidle",
+      "LatestGame": getFinalDate('2025-04-01', Number(data["Latest00sPopIdleGame"]))
+    },
+    {
+      "GameType": "ScreenIdle Posters",
+      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestScreenIdleGame"]))
+    }
+  ]
+
   return (
     <div style={{ padding: '1rem' }}>
       <h2 style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Game Stats</h2>
-      <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
-        {Object.entries(data).map(([key, value]) => (
-          <li key={key}>
-            <strong>{key}:</strong> {value ?? 'N/A'}
-          </li>
-        ))}
-      </ul>
+
+      <Card padding={4} radius={2} shadow={1} tone="default">
+        <Box>
+          <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
+            <Box flex={1}><Text>Name</Text></Box>
+            <Box flex={1}><Text>Latest Game Date</Text></Box>
+          </Flex>
+          {Object.entries(data).map(([key, value]) => (
+            <Flex key={key} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
+              <Box flex={1}><Text>{key}</Text></Box>
+              <Box flex={1}><Text>{value}</Text></Box>
+            </Flex>
+          ))}
+        </Box>
+      </Card>
+
+      <Card padding={4} radius={2} shadow={1} tone="default">
+        <Box>
+          <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
+            <Box flex={1}><Text>Name</Text></Box>
+            <Box flex={1}><Text>Latest Game Date</Text></Box>
+          </Flex>
+          {latestSetGames.map((game, i) => (
+            <Flex key={i} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
+              <Box flex={1}><Text>{game.GameType}</Text></Box>
+              <Box flex={1}><Text>{new Date(game.LatestGame).toLocaleDateString()}</Text></Box>
+            </Flex>
+          ))}
+        </Box>
+      </Card>
     </div>
   )
 }
