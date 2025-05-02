@@ -9,7 +9,10 @@ const query = groq`
   "Latest80sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '80s'].gameNumber),
   "Latest90sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '90s'].gameNumber),
   "Latest00sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '00s'].gameNumber),
-  "LatestScreenIdleGame": math::max(*[_type == "movie" && defined(gameId)].gameId),
+  "LatestOldScreenIdleGame": math::max(*[_type == "movie" && defined(gameId)].gameId),
+  "LatestMoviePoster": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'posters'].gameNumber),
+  "LatestMovieTagline": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'taglines'].gameNumber),
+  "LatestMovieBlankbuster": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'blankbuster'].gameNumber),
   "TotalAllAlbums": count(*[_type == "album"]),
   "Total80sAlbums": count(*[_type == "album" && year >= 1980 && year <= 1989]),
   "Total90sAlbums": count(*[_type == "album" && year >= 1990 && year <= 1999]),
@@ -49,8 +52,20 @@ export default function GameStatsWidget() {
       "LatestGame": getFinalDate('2025-04-01', Number(data["Latest00sPopIdleGame"]))
     },
     {
-      "GameType": "ScreenIdle Posters",
-      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestScreenIdleGame"]))
+      "GameType": "Old ScreenIdle Posters",
+      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestOldScreenIdleGame"]))
+    },
+    {
+      "GameType": "Movie Posters",
+      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestMoviePoster"]))
+    },
+    {
+      "GameType": "Movie Taglines",
+      "LatestGame": getFinalDate('2024-07-22', Number(data["LatestMovieTagline"]))
+    },
+    {
+      "GameType": "Movie Blankbuster",
+      "LatestGame": getFinalDate('2024-09-07', Number(data["LatestMovieBlankbuster"]))
     }
   ]
 
