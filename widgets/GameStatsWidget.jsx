@@ -5,7 +5,7 @@ import { Card, Box, Text, Flex } from '@sanity/ui'
 
 const query = groq`
 {
-  "LatestPopIdleGame": math::max(*[_type == "album" && defined(gameId)].gameId),
+  "LatestPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == 'original'].gameNumber),
   "Latest80sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '80s'].gameNumber),
   "Latest90sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '90s'].gameNumber),
   "Latest00sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '00s'].gameNumber),
