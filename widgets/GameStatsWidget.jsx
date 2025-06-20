@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import groq from 'groq';
 import { client } from '../sanity/client' // adjust path as needed
-import { Card, Box, Text, Flex } from '@sanity/ui'
+import { Card, Box, Text, Flex, Spinner, Button } from '@sanity/ui'
 
 const query = groq`
 {
@@ -23,11 +23,29 @@ const query = groq`
 export default function GameStatsWidget() {
   const [data, setData] = useState(null)
 
-  useEffect(() => {
+  const loadData = () => {
+    setData(null);
     client.fetch(query).then(setData)
-  }, [])
+  };
 
-  if (!data) return <div>Loading game stats...</div>
+  useEffect(() => { loadData() }, [])
+
+  if (!data) return (
+    <Card padding={4}>
+    <Flex
+      align="center"
+      direction="column"
+      gap={3}
+      height="fill"
+      justify="center"
+    >
+      <Spinner muted />
+      <Text muted size={1}>
+        Loading game stats…
+      </Text>
+    </Flex>
+  </Card>
+);
 
   const getFinalDate = (originalDate, days) => {
     const date = new Date(originalDate);
@@ -71,8 +89,8 @@ export default function GameStatsWidget() {
 
   return (
     <div style={{ padding: '1rem' }}>
-      <h2 style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>Game Stats</h2>
-
+      <h2>Game Stats</h2>
+      <Button onClick={loadData} text="Reload Data" tone="primary" />
       <Card padding={4} radius={2} shadow={1} tone="default">
         <Box>
           <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
@@ -94,8 +112,8 @@ export default function GameStatsWidget() {
             <Box flex={1}><Text>Name</Text></Box>
             <Box flex={1}><Text>Latest Game Date</Text></Box>
           </Flex>
-          {latestSetGames.map((game, i) => (
-            <Flex key={i} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
+          {latestSetGames.map((game) => (
+            <Flex key={game.GameType} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
               <Box flex={1}><Text>{game.GameType}</Text></Box>
               <Box flex={1}><Text>{new Date(game.LatestGame).toLocaleDateString()}</Text></Box>
             </Flex>
