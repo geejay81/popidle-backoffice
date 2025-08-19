@@ -9,7 +9,6 @@ const query = groq`
   "Latest80sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '80s'].gameNumber),
   "Latest90sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '90s'].gameNumber),
   "Latest00sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '00s'].gameNumber),
-  "LatestOldScreenIdleGame": math::max(*[_type == "movie" && defined(gameId)].gameId),
   "LatestMoviePoster": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'posters'].gameNumber),
   "LatestMovieTagline": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'taglines'].gameNumber),
   "LatestMovieBlankbuster": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'blankbuster'].gameNumber),
@@ -55,35 +54,38 @@ export default function GameStatsWidget() {
   const latestSetGames = [
     {
       "GameType": "Original Popidle",
-      "LatestGame": getFinalDate('2022-05-22', Number(data["LatestPopIdleGame"]))
+      "LatestGame": getFinalDate('2022-05-22', Number(data["LatestPopIdleGame"])),
+      "LatestNumber": data["LatestPopIdleGame"]
     },
     {
       "GameType": "80s Popidle",
-      "LatestGame": getFinalDate('2024-05-28', Number(data["Latest80sPopIdleGame"]))
+      "LatestGame": getFinalDate('2024-05-28', Number(data["Latest80sPopIdleGame"])),
+      "LatestNumber": data["Latest80sPopIdleGame"]
     },
     {
       "GameType": "90s Popidle",
-      "LatestGame": getFinalDate('2024-05-28', Number(data["Latest90sPopIdleGame"]))
+      "LatestGame": getFinalDate('2024-05-28', Number(data["Latest90sPopIdleGame"])),
+      "LatestNumber": data["Latest90sPopIdleGame"]
     },
     {
       "GameType": "00s Popidle",
-      "LatestGame": getFinalDate('2025-04-01', Number(data["Latest00sPopIdleGame"]))
-    },
-    {
-      "GameType": "Old ScreenIdle Posters",
-      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestOldScreenIdleGame"]))
+      "LatestGame": getFinalDate('2025-04-01', Number(data["Latest00sPopIdleGame"])),
+      "LatestNumber": data["Latest00sPopIdleGame"]
     },
     {
       "GameType": "Movie Posters",
-      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestMoviePoster"]))
+      "LatestGame": getFinalDate('2024-07-06', Number(data["LatestMoviePoster"])),
+      "LatestNumber": data["LatestMoviePoster"]
     },
     {
       "GameType": "Movie Taglines",
-      "LatestGame": getFinalDate('2024-07-22', Number(data["LatestMovieTagline"]))
+      "LatestGame": getFinalDate('2024-07-22', Number(data["LatestMovieTagline"])),
+      "LatestNumber": data["LatestMovieTagline"]
     },
     {
       "GameType": "Movie Blankbuster",
-      "LatestGame": getFinalDate('2024-09-07', Number(data["LatestMovieBlankbuster"]))
+      "LatestGame": getFinalDate('2024-09-07', Number(data["LatestMovieBlankbuster"])),
+      "LatestNumber": data["LatestMovieBlankbuster"]
     }
   ]
 
@@ -91,11 +93,11 @@ export default function GameStatsWidget() {
     <div style={{ padding: '1rem' }}>
       <h2>Game Stats</h2>
       <Button onClick={loadData} text="Reload Data" tone="primary" />
-      <Card padding={4} radius={2} shadow={1} tone="default">
+      {/* <Card padding={4} radius={2} shadow={1} tone="default">
         <Box>
           <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
             <Box flex={1}><Text>Name</Text></Box>
-            <Box flex={1}><Text>Latest Game Date</Text></Box>
+            <Box flex={1}><Text>Latest Game Number</Text></Box>
           </Flex>
           {Object.entries(data).map(([key, value]) => (
             <Flex key={key} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
@@ -104,18 +106,20 @@ export default function GameStatsWidget() {
             </Flex>
           ))}
         </Box>
-      </Card>
+      </Card> */}
 
       <Card padding={4} radius={2} shadow={1} tone="default">
         <Box>
           <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
-            <Box flex={1}><Text>Name</Text></Box>
-            <Box flex={1}><Text>Latest Game Date</Text></Box>
+            <Box flex={1}><Text>Game</Text></Box>
+            <Box flex={1}><Text>Latest Date</Text></Box>
+            <Box flex={1}><Text>Latest Id</Text></Box>
           </Flex>
           {latestSetGames.map((game) => (
             <Flex key={game.GameType} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
               <Box flex={1}><Text>{game.GameType}</Text></Box>
               <Box flex={1}><Text>{new Date(game.LatestGame).toLocaleDateString()}</Text></Box>
+              <Box flex={1}><Text>{game.LatestNumber}</Text></Box>
             </Flex>
           ))}
         </Box>
