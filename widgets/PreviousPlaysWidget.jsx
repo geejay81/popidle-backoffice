@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { getHistoricPlays } from '../data/cms'; // adjust path as needed
-import { Card, Stack, Flex, Box, Text, Spinner } from '@sanity/ui'
+import { Card, Stack, Flex, Box, Text, Spinner, Select } from '@sanity/ui'
 
 const entityTypes = [
   { value: 'album', label: 'Album' },
@@ -29,7 +29,7 @@ const PreviousPlaysWidget = () => {
   }, [entityType, sortOrder]);
 
   if (!data) return (
-      <Card padding={4}>
+    <Card padding={4}>
       <Flex
         align="center"
         direction="column"
@@ -51,9 +51,10 @@ const PreviousPlaysWidget = () => {
         {/* Controls */}
         <Flex gap={3} align="center">
           <Box>
-            <label>
-              <Text size={1} style={{ marginRight: 8 }}>Entity Type:</Text>
-              <select
+            <Flex align="center" gap={2}>
+              <Text size={1} style={{ marginRight: 8 }} htmlFor='entityType'>Entity Type:</Text>
+              <Select
+                id="entityType"
                 value={entityType}
                 onChange={e => setEntityType(e.target.value)}
                 style={{ padding: '4px 8px', borderRadius: 4 }}
@@ -61,13 +62,14 @@ const PreviousPlaysWidget = () => {
                 {entityTypes.map(opt => (
                   <option key={opt.value} value={opt.value}>{opt.label}</option>
                 ))}
-              </select>
-            </label>
+              </Select>
+            </Flex>
           </Box>
           <Box>
-            <label>
-              <Text size={1} style={{ marginRight: 8 }}>Sort Order:</Text>
-              <select
+            <Flex align="center" gap={2}>
+              <Text size={1} style={{ marginRight: 8 }} htmlFor='sortOrder'>Sort Order:</Text>
+              <Select
+              id="sortOrder"
                 value={sortOrder}
                 onChange={e => setSortOrder(e.target.value)}
                 style={{ padding: '4px 8px', borderRadius: 4 }}
@@ -75,8 +77,8 @@ const PreviousPlaysWidget = () => {
                 {sortOrders.map(opt => (
                   <option key={opt.value} value={opt.value}>{opt.label}</option>
                 ))}
-              </select>
-            </label>
+              </Select>
+            </Flex>
           </Box>
         </Flex>
         {/* Output */}
