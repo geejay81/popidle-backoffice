@@ -60,8 +60,8 @@ export default {
   ],
   preview: {
     select: {
-      title: "artist",
-      subtitle: "albumTitle",
+      title: "albumTitle",
+      subtitle: "artist",
       media: "coverArt"
     }
   },

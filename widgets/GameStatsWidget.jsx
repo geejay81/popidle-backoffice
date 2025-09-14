@@ -92,22 +92,7 @@ export default function GameStatsWidget() {
   return (
     <div style={{ padding: '1rem' }}>
       <h2>Game Stats</h2>
-      <Button onClick={loadData} text="Reload Data" tone="primary" />
-      {/* <Card padding={4} radius={2} shadow={1} tone="default">
-        <Box>
-          <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
-            <Box flex={1}><Text>Name</Text></Box>
-            <Box flex={1}><Text>Latest Game Number</Text></Box>
-          </Flex>
-          {Object.entries(data).map(([key, value]) => (
-            <Flex key={key} paddingY={2} style={{ borderTop: '1px solid #eee' }}>
-              <Box flex={1}><Text>{key}</Text></Box>
-              <Box flex={1}><Text>{value}</Text></Box>
-            </Flex>
-          ))}
-        </Box>
-      </Card> */}
-
+      <Button onClick={loadData} text="Reload Data" tone="primary" style={{ marginBottom: '1rem' }} />
       <Card padding={4} radius={2} shadow={1} tone="default">
         <Box>
           <Flex paddingBottom={2} style={{ fontWeight: 'bold' }}>
