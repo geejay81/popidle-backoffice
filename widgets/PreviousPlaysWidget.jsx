@@ -47,6 +47,7 @@ const PreviousPlaysWidget = () => {
 
   return (
     <Card padding={4} radius={2} shadow={1}>
+      <h2>Historic Game Appearances</h2>
       <Stack space={4}>
         {/* Controls */}
         <Flex gap={3} align="center">
