@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getHistoricPlays } from '../data/cms'; // adjust path as needed
-import { Card, Stack, Flex, Box, Text, Spinner, Select } from '@sanity/ui'
+import { Card, Stack, Flex, Box, Text, Spinner, Select, Button } from '@sanity/ui'
+import { Link } from 'sanity/router';
 
 const entityTypes = [
   { value: 'album', label: 'Album' },
@@ -82,10 +83,11 @@ const PreviousPlaysWidget = () => {
             </Flex>
           </Box>
         </Flex>
-        {/* Output */}
-        {entityType === "album"
-          ? <AlbumOutput data={data} />
-          : <MovieOutput data={data} />}
+        <Text size={1}>
+          {entityType === "album"
+            ? <AlbumOutput data={data} />
+            : <MovieOutput data={data} />}
+        </Text>
       </Stack>
     </Card>
   );
@@ -111,23 +113,31 @@ const AlbumOutput = ({ data }) => (
       background: 'white', // or Card background
       zIndex: 1
     }}>
-        <Box flex={1}>Artist</Box>
+        <Box flex={2}>Artist</Box>
         <Box flex={2}>Album Title</Box>
         <Box flex={1}>Year</Box>
         <Box flex={1}>Latest 80s</Box>
         <Box flex={1}>Latest 90s</Box>
         <Box flex={1}>Latest 00s</Box>
         <Box flex={1}>Latest Original</Box>
+        <Box flex={1}></Box>
       </Flex>
       {data.map((album) => (
         <Flex key={album._id} padding={2} style={{ borderBottom: '1px solid #f3f3f3' }}>
-          <Box flex={1} style={tdStyle}>{album.artist}</Box>
-          <Box flex={2} style={tdStyle}>{album.albumTitle}</Box>
+          <Box flex={2} style={tdStyle}>{album.artist}</Box>
+          <Box flex={2} style={tdStyle}>
+            <a href={`/structure/album;${album._id}`} target="_blank" rel="noopener noreferrer">
+            {album.albumTitle}
+            </a>
+          </Box>
           <Box flex={1} style={tdStyle}>{album.year}</Box>
           <Box flex={1} style={tdStyle}>{album.latest80s || 'N/A'}</Box>
           <Box flex={1} style={tdStyle}>{album.latest90s || 'N/A'}</Box>
           <Box flex={1} style={tdStyle}>{album.latest00s || 'N/A'}</Box>
           <Box flex={1} style={tdStyle}>{album.latestOriginal || 'N/A'}</Box>
+          <Box flex={1}>
+            <Link href={'#'} onClick={() => showAlbumDetails(album)}>Details</Link>
+          </Box>
         </Flex>
       ))}
     </Flex>
@@ -152,23 +162,39 @@ const MovieOutput = ({ data }) => (
         background: 'white', // or Card background
         zIndex: 1
       }}>
-        <Box flex={1}>Title</Box>
+        <Box flex={3}>Title</Box>
         <Box flex={1}>Year</Box>
         <Box flex={1}>Latest Poster</Box>
         <Box flex={1}>Latest Tagline</Box>
         <Box flex={1}>Latest BlankBuster</Box>
+        <Box flex={1}></Box>
       </Flex>
-      {data.map((album) => (
-        <Flex key={album._id} padding={2} style={{ borderBottom: '1px solid #f3f3f3' }}>
-          <Box flex={1} style={tdStyle}>{album.title}</Box>
-          <Box flex={1} style={tdStyle}>{album.year}</Box>
-          <Box flex={1} style={tdStyle}>{album.latestPosters || 'N/A'}</Box>
-          <Box flex={1} style={tdStyle}>{album.latestTaglines || 'N/A'}</Box>
-          <Box flex={1} style={tdStyle}>{album.latestBlankBuster || 'N/A'}</Box>
+      {data.map((movie) => (
+        <Flex key={movie._id} padding={2} style={{ borderBottom: '1px solid #f3f3f3' }}>
+          <Box flex={3} style={tdStyle}>
+            <a href={`/structure/movie;${movie._id}`} target="_blank" rel="noopener noreferrer">
+            {movie.title}
+            </a>
+          </Box>
+          <Box flex={1} style={tdStyle}>{movie.year}</Box>
+          <Box flex={1} style={tdStyle}>{movie.latestPosters || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{movie.latestTaglines || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{movie.latestBlankBuster || 'N/A'}</Box>
+          <Box flex={1}>
+            <Link href={'#'} onClick={() => showMovieDetails(movie)}>Details</Link>
+          </Box>
         </Flex>
       ))}
     </Flex>
   </Box>
 );
+
+const showMovieDetails = (movie) => {
+  alert(`Movie Details:\nTitle: ${movie.title}\nYear: ${movie.year}\nTagline: ${movie.tagline}\nID: ${movie._id}`);
+}
+
+const showAlbumDetails = (album) => {
+  alert(`Album Details:\nArtist: ${album.artist}\nTitle: ${album.albumTitle}\nYear: ${album.year}\nID: ${album._id}`);
+}
 
 export default PreviousPlaysWidget;

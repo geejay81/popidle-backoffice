@@ -30,6 +30,7 @@ const queries = {
 _id,
 title,
 year,
+tagline,
 "latestPosters": gameAppearances[gameType == "posters"] | order(gameNumber desc)[0].gameNumber,
 "latestTaglines": gameAppearances[gameType == "taglines"] | order(gameNumber desc)[0].gameNumber,
 "latestBlankBuster": gameAppearances[gameType == "blankbuster"] | order(gameNumber desc)[0].gameNumber
