@@ -91,13 +91,26 @@ const PreviousPlaysWidget = () => {
   );
 };
 
+const tdStyle = {minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap'};
+
 const AlbumOutput = ({ data }) => (
-  <Box>
+  <Box style={{
+    maxHeight: '400px',   // adjust as needed
+    overflowY: 'auto'
+  }}>
     <Text size={2} weight="bold" style={{ marginBottom: '1rem' }}>
       Albums {data.length} records
     </Text>
     <Flex direction="column">
-      <Flex padding={2} style={{ fontWeight: 'bold', borderBottom: '1px solid #eee' }}>
+      <Flex padding={2}
+      style={{ 
+      fontWeight: 'bold', 
+      borderBottom: '1px solid #eee', 
+      position: 'sticky', 
+      top: 0, 
+      background: 'white', // or Card background
+      zIndex: 1
+    }}>
         <Box flex={1}>Artist</Box>
         <Box flex={2}>Album Title</Box>
         <Box flex={1}>Year</Box>
@@ -108,13 +121,13 @@ const AlbumOutput = ({ data }) => (
       </Flex>
       {data.map((album) => (
         <Flex key={album._id} padding={2} style={{ borderBottom: '1px solid #f3f3f3' }}>
-          <Box flex={1}>{album.artist}</Box>
-          <Box flex={2}>{album.albumTitle}</Box>
-          <Box flex={1}>{album.year}</Box>
-          <Box flex={1}>{album.latest80s || 'N/A'}</Box>
-          <Box flex={1}>{album.latest90s || 'N/A'}</Box>
-          <Box flex={1}>{album.latest00s || 'N/A'}</Box>
-          <Box flex={1}>{album.latestOriginal || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.artist}</Box>
+          <Box flex={2} style={tdStyle}>{album.albumTitle}</Box>
+          <Box flex={1} style={tdStyle}>{album.year}</Box>
+          <Box flex={1} style={tdStyle}>{album.latest80s || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.latest90s || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.latest00s || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.latestOriginal || 'N/A'}</Box>
         </Flex>
       ))}
     </Flex>
@@ -122,12 +135,23 @@ const AlbumOutput = ({ data }) => (
 );
 
 const MovieOutput = ({ data }) => (
-  <Box>
+  <Box style={{
+    maxHeight: '400px',   // adjust as needed
+    overflowY: 'auto'
+  }}>
     <Text size={2} weight="bold" style={{ marginBottom: '1rem' }}>
       Movies {data.length} records
     </Text>
     <Flex direction="column">
-      <Flex padding={2} style={{ fontWeight: 'bold', borderBottom: '1px solid #eee' }}>
+      <Flex padding={2}
+        style={{ 
+        fontWeight: 'bold', 
+        borderBottom: '1px solid #eee', 
+        position: 'sticky', 
+        top: 0, 
+        background: 'white', // or Card background
+        zIndex: 1
+      }}>
         <Box flex={1}>Title</Box>
         <Box flex={1}>Year</Box>
         <Box flex={1}>Latest Poster</Box>
@@ -136,11 +160,11 @@ const MovieOutput = ({ data }) => (
       </Flex>
       {data.map((album) => (
         <Flex key={album._id} padding={2} style={{ borderBottom: '1px solid #f3f3f3' }}>
-          <Box flex={1}>{album.title}</Box>
-          <Box flex={1}>{album.year}</Box>
-          <Box flex={1}>{album.latestPosters || 'N/A'}</Box>
-          <Box flex={1}>{album.latestTaglines || 'N/A'}</Box>
-          <Box flex={1}>{album.latestBlankBuster || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.title}</Box>
+          <Box flex={1} style={tdStyle}>{album.year}</Box>
+          <Box flex={1} style={tdStyle}>{album.latestPosters || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.latestTaglines || 'N/A'}</Box>
+          <Box flex={1} style={tdStyle}>{album.latestBlankBuster || 'N/A'}</Box>
         </Flex>
       ))}
     </Flex>
