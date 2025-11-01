@@ -6,6 +6,7 @@ import { Card, Box, Text, Flex, Spinner, Button } from '@sanity/ui'
 const query = groq`
 {
   "LatestPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == 'original'].gameNumber),
+  "Latest70sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '70s'].gameNumber),
   "Latest80sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '80s'].gameNumber),
   "Latest90sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '90s'].gameNumber),
   "Latest00sPopIdleGame": math::max(*[_type == "album" && defined(gameAppearances[])].gameAppearances[gameType == '00s'].gameNumber),
@@ -13,6 +14,7 @@ const query = groq`
   "LatestMovieTagline": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'taglines'].gameNumber),
   "LatestMovieBlankbuster": math::max(*[_type == "movie" && defined(gameAppearances[])].gameAppearances[gameType == 'blankbuster'].gameNumber),
   "TotalAllAlbums": count(*[_type == "album"]),
+  "Total70sAlbums": count(*[_type == "album" && year >= 1970 && year <= 1979]),
   "Total80sAlbums": count(*[_type == "album" && year >= 1980 && year <= 1989]),
   "Total90sAlbums": count(*[_type == "album" && year >= 1990 && year <= 1999]),
   "Total00sAlbums": count(*[_type == "album" && year >= 2000 && year <= 2009])

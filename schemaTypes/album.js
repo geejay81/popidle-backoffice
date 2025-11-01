@@ -2,6 +2,7 @@ import { gameAppearances } from '../subSchemas/game-appearances';
 
 const gameTypes = [
   { title: "Original Game", value: "original" },
+  { title: "70s Game", value: "70s" },
   { title: "80s Game", value: "80s" },
   { title: "90s Game", value: "90s" },
   { title: "2000s Game", value: "00s" },
@@ -10,6 +11,7 @@ const gameTypes = [
 
 const typeLabels = {
   "original": "Original Game",
+  "70s": "70s Game",
   "80s": "80s Game",
   "90s": "90s Game",
   "00s": "2000s Game",

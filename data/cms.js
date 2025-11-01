@@ -17,6 +17,7 @@ const queries = {
   artist,
   albumTitle,
   year,
+  "latest70s": gameAppearances[gameType == "70s"] | order(gameNumber desc)[0].gameNumber,
   "latest80s": gameAppearances[gameType == "80s"] | order(gameNumber desc)[0].gameNumber,
   "latest90s": gameAppearances[gameType == "90s"] | order(gameNumber desc)[0].gameNumber,
   "latest00s": gameAppearances[gameType == "00s"] | order(gameNumber desc)[0].gameNumber,
