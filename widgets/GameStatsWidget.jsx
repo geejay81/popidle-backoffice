@@ -56,7 +56,7 @@ export default function GameStatsWidget() {
   const latestSetGames = [
     {
       "GameType": "Original Popidle",
-      "LatestGame": getFinalDate('2022-05-22', Number(data["LatestPopIdleGame"])),
+      "LatestGame": getFinalDate('2022-05-21', Number(data["LatestPopIdleGame"])),
       "LatestNumber": data["LatestPopIdleGame"]
     },
     {
