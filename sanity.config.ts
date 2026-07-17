@@ -4,7 +4,6 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import { dashboardTool, projectInfoWidget, projectUsersWidget } from '@sanity/dashboard'
 import { widgets } from './widgets'
-import { ActivityIcon, PlayIcon } from '@sanity/icons'
 
 export default defineConfig({
   name: 'default',
@@ -16,7 +15,6 @@ export default defineConfig({
     dashboardTool({ 
       name: 'dashboard',
       title: 'Dashboard',
-      icon: ActivityIcon,
       widgets: [
       projectInfoWidget(),
       projectUsersWidget(),
@@ -24,7 +22,6 @@ export default defineConfig({
     dashboardTool({ 
       name: 'game-dashboard',
       title: 'Game Info',
-      icon: PlayIcon,
       widgets: [
       ...widgets
     ]}),
